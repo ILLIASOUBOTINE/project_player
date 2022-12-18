@@ -1,0 +1,354 @@
+:root {
+    --color-text-title: rgba(124, 0, 87, 1);
+    --main-bgc-white: #FFFFFF;
+    --font-family-title: 'Rock Salt', cursive;
+    --font-family-fill: 'Inter', sans-serif;
+    --color-text-main: #000000;
+    --main-bgc-items-main: rgba(255, 255, 255, 0.8);
+    --font-family-title-main: 'Playfair Display', serif;
+    --color-player-btn: rgba(151, 71, 255, 1);
+}
+
+
+
+
+*, p, footer{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #000000;
+    background-image: url(imgs/fond.png);
+    height: 100vh;
+    min-height: 800px ;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    background: var(--main-bgc-white);
+    color: var(--color-text-title);
+    font-size: 36px;
+    font-family: var(--font-family-title);
+}
+
+.title_footer {
+    color: var(--color-text-title);
+    font-size: 16px;
+    font-family: var(--font-family-title);
+}
+
+.text_footer {
+    color: var(--color-text-main);
+    font-size: 10px;
+    font-family: var(--font-family-fill);
+}
+
+footer {
+    height: 80px;
+   background: var(--main-bgc-white);
+
+
+}
+
+.icon_footer {
+    height: 37.5px;
+    width: 37.5px;
+}
+
+
+/*                     main                        */
+
+main {
+    height: calc(100vh - 90px - 80px);
+    
+}
+
+.list_musique {
+    width: 320px;
+    background-color: var(--main-bgc-items-main);
+   
+
+}
+
+.list_item_musique {
+   
+   max-height: calc(100vh - 90px - 80px - 120px - 5px);
+    overflow: auto;
+}
+
+.style_item_list {
+    padding: 5px 15px;
+    border-bottom: 1px solid black;
+    color: var(--color-text-main);
+
+}
+
+.item_musique {
+    display: flex;
+    flex-direction: column;
+    
+    font-family: var(--font-family-fill); 
+    font-weight: 400;
+   
+    
+}
+
+.title_item_musique {
+    font-size: 20px;
+}
+
+.props_item_musique {
+
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+
+}
+
+.title_text_main {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-size: 24px;
+    font-family: var(--font-family-title-main);
+    font-weight: 600;
+    /* text-align: center; */
+    height: 60px;
+    width:320px;
+    background-color: var(--main-bgc-items-main);
+   
+    /* line-height:60px; */
+}
+
+
+
+.div_search {
+    height: 60px;
+    display: flex;
+    align-items: center;
+
+}
+
+.search {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background-color: #EFECEC;
+    border-radius: 15px;
+    padding: 0 10px;
+    font-size: 14px;
+    font-family: var(--font-family-fill);
+    
+}
+
+/*          filtre         */
+
+
+.text_filtre {
+    color: var(--color-text-main);
+    font-size: 20px;
+    font-family: var(--font-family-fill);
+    font-weight: 400;
+    
+}
+
+.title_filtre {
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    font-size: 24px;
+    font-family: var(--font-family-title-main);
+    font-weight: 600;
+    width:320px;
+    background-color: var(--main-bgc-items-main);
+    padding: 5px 20px;
+   
+}
+
+.bgc{
+    background-color: var(--main-bgc-items-main);
+}
+
+.duration_musique {
+    width: 100%;
+}
+
+.btn_filtre_submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: var(--main-bgc-items-main);
+    font-size: 24px;
+    font-family: var(--font-family-fill);
+    font-weight: 500;
+    border: solid 1px;
+    margin:20px auto;
+    margin-left: 60px;
+    
+}
+
+/*            player             */
+
+
+.player {
+    height: calc(100vh - 90px - 80px - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*            title song              */
+
+.title_song {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 80px;
+    border-radius: 15px;
+    background-color: var(--main-bgc-items-main);
+    font-size: 32px;
+    font-family: var(--font-family-title);
+    font-weight: 400;
+    color: var(--color-text-title);
+    margin-bottom: 50px;
+}
+
+/*             motor             */
+
+.motor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 600px;
+    height: 400px;
+    border-radius: 30px;
+    background-color: var(--main-bgc-items-main);
+    font-size: 32px;
+    font-family: var(--font-family-fill);
+    font-weight: 400;
+    color: var(--color-text-main);
+}
+
+.btn_choice_list {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    
+   
+}
+
+#btn_my_list, #btn_all_list {
+    display: none;
+}
+
+/*               track           */
+
+
+
+
+.track_line {
+    position: relative;
+    width: 75%;
+    height: 10px ;
+    align-self: start;
+    background-color: black;
+    margin-left: 5%;
+    
+}
+
+.track_circle {
+    position: absolute;
+    top: -10px;
+    left: 100px;
+    width: 30px;
+    height: 30px ;
+    background-color: var(--color-player-btn);
+    border-radius: 50%;
+    
+}
+
+.track_line_red {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 10px ;
+    background-color: var(--color-text-title);
+      
+}
+
+.track_time {
+    position: absolute;
+    /* width: 40px ; */
+    top: -10px;
+    right: -50px;
+    
+}
+
+/*                 nav_track              */
+
+.nav_track {
+
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 30%;
+    
+}
+
+.volume {
+    position: relative;
+}
+
+.block_volume {
+    position: absolute;
+    /* display: none; */
+    width: 240px;
+    left: -55px;
+    top: -20px;
+    transform: rotate(-90deg);
+
+}
+
+.volume_musique {
+    width: 100%;
+}
+
+.block_volume :first-child {
+   position: absolute; 
+   top: -5px;
+   right: 0px;
+   transform: rotate(90deg);
+   color: var(--color-text-main);
+    font-size: 14px;
+    font-family: var(--font-family-fill);
+    font-weight: 400;
+}
+
+.block_volume :last-child {
+    position: absolute; 
+    top: 0px;
+    left: 0px;
+    transform: rotate(90deg);
+    color: var(--color-text-main);
+     font-size: 14px;
+     font-family: var(--font-family-fill);
+     font-weight: 400;
+ }
