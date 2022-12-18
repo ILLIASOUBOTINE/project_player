@@ -19,6 +19,7 @@
         </header>
 
         <main>
+            <!-- <div class="fond"></div> -->
             <!--                       menu                          -->
             <div class="d-flex flex-wrap justify-content-between align-items-center">
 
@@ -30,11 +31,11 @@
                 <div class="list_musique dropdown-menu  pt-0 pb-0 rounded-0 " >
                    
                     <div class="div_search style_item_list"> 
-                        <input type="text" class="search" placeholder="Titre  &#128269">
-                            <img src="imgs/search_icon.svg" alt="">
+                        <input type="text" class="search" placeholder="Titre">
+                            <img class="search_icon" src="imgs/search_icon.svg" alt="">
                         </input>
                     </div>
-                    <div class="list_item_musique">
+                    <div class="list_item_musique" id="my_songs">
                         <!-- item_musique -->
                     </div>
                 </div>
@@ -103,19 +104,17 @@
                     <div class="list_musique dropdown-menu  pt-0 pb-0 rounded-0 " >
                         <!-- <p class=" style_item_list title_text_main">Toutes les chansons</p> -->
                         <div class="div_search style_item_list"> 
-                            <input type="text" class="search" placeholder="Titre  &#128269">
-                                <img src="imgs/search_icon.svg" alt="">
+                            <input type="text" class="search" placeholder="Titre">
+                                <img class="search_icon" src="imgs/search_icon.svg" alt="">
                             </input>
                         </div>
-                        <div class="list_item_musique">
-                            <div class="item_musique style_item_list dropdown-item">
+                        <div class="list_item_musique" id="all_songs">
+                            <!-- <div class="item_musique style_item_list dropdown-item">
                                 <p class="title_item_musique">Lourmarin</p>
                                 <p class="props_item_musique"><img src="imgs/add_icon.svg" alt=""><span>musique pop</span><span>en</span><span>3:53</span></p>
-                            </div>
-                            <div class="item_musique style_item_list dropdown-item">
-                                <p class="title_item_musique">Lourmarin</p>
-                                <p class="props_item_musique"><img src="imgs/add_icon.svg" alt=""><span>musique pop</span><span>en</span><span>3:53</span></p>
-                            </div>
+                            </div> -->
+
+                            
                         </div>
                     </div>
                 </div>
@@ -130,7 +129,7 @@
 
              <!--                          motor              -->
                 <div class="motor">
-                    <div class="btn_choice_list">
+                    <div class="btn_choice_list display_hidden">
 
                         <label class="btn_my_list btn_filtre_submit mx-0 my-0" for="btn_my_list">Ma liste</label>
                         <input  id="btn_my_list" type="radio" name="choice_list" checked/>
@@ -151,6 +150,7 @@
                         <div class="reset"><img src="imgs/reset_icon.png" alt=""></div>
                         <div class="next"><img src="imgs/next_icon.png" alt=""></div>
                         <div class="play"><img src="imgs/play_icon.png" alt=""></div>
+                        <div class="stop display_none"><img src="imgs/stop_icon.png" alt=""></div>
                         <div class="prev"><img src="imgs/prev_icon.png" alt=""></div>
                         <div class="loop"><img src="imgs/loop_icon.png" alt=""></div>
                         
@@ -163,30 +163,15 @@
                                 
                             </div>
                         </div>
-                       
+                    </div>      
                          
-                               
+                </div>               
                             
-                            
+            </div>                
                         
                        
-                       
-                    </div>   
+        </main>               
                     
-
-                </div>
-
-
-
-
-            </div>
-           
-               
-              
-
-           
-        </main>
-
         <footer class="d-flex pt-2 flex-wrap justify-content-around align-items-center">
             <p class="text_footer col-md-3  ">Interdiction de vente de boissons alcooliques aux mineurs de moins de 18 ans.
                 La preuve de majorité de l'acheteur est exigée au moment de la vente en ligne.
@@ -203,30 +188,14 @@
             <li class="nav-item me-3"><a href="#" class="nav-link px-2 "><img class="icon_footer" src="imgs/instagram.svg" alt=""></a></li>
             
             </ul>
-        </footer>
-
+        </footer>                
     </div>
-   
+        
+    <audio  controls>
+        <!-- <source src="chansons/5_Nizza-Soldat.mp3" type="audio/mp3"> -->
+	</audio>
 
-   
-    <!-- <audio  controls>
-        <source src="chansons/5_Nizza_(Pyatnica)_-_Soldat_Pesni-Tut.mp3" type="audio/mp3">
-	</audio> -->
-
-    <!-- <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <span class="mb-3 mb-md-0 text-muted">© 2022 Company, Inc</span>
-        </div>
-    
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-        </ul>
-      </footer> -->
+  
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="main.js"></script>
