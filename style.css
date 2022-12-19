@@ -123,6 +123,10 @@ main {
 
 }
 
+.props_item_musique >img:hover{
+    transform: scale(1.3);
+}
+
 .title_text_main {
     display: flex;
     justify-content:center;
@@ -278,6 +282,25 @@ main {
     display: none;
 }
 
+
+
+
+
+#btn_all_list:checked ~ .btn_all_list {
+    background-color: var(--color-player-btn);
+}
+
+#btn_my_list:checked ~ .btn_my_list {
+    background-color: var(--color-player-btn);
+
+}
+
+.btn_my_list:hover, .btn_all_list:hover {
+   background-color: var(--color-text-title);
+}
+
+
+
 /*               track           */
 
 
@@ -296,7 +319,7 @@ main {
 .track_circle {
     position: absolute;
     top: -10px;
-    left: 100px;
+    left: -25px;
     width: 30px;
     height: 30px ;
     background-color: var(--color-player-btn);
@@ -308,7 +331,7 @@ main {
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 100px;
+    width: 0px;
     height: 10px ;
     background-color: var(--color-text-title);
       
@@ -332,6 +355,22 @@ main {
     align-items: flex-start;
     height: 30%;
     
+}
+
+.active_nav_track {
+    background-color: rgb(230, 161, 227);
+    border-radius: 50%;
+    transform: rotate(45deg);
+
+}
+
+.nav_track img:hover {
+    transform: scale(1.2);
+}
+
+
+.nav_track img:hover {
+    cursor: pointer;
 }
 
 .volume {
@@ -376,6 +415,10 @@ main {
 
 
 /*              for help              */
+
+.cursor_pointer {
+    cursor: pointer;
+}
 
 .display_none {
     display: none;

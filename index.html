@@ -129,34 +129,37 @@
 
              <!--                          motor              -->
                 <div class="motor">
-                    <div class="btn_choice_list display_hidden">
+                    <div class="btn_choice_list ">
 
-                        <label class="btn_my_list btn_filtre_submit mx-0 my-0" for="btn_my_list">Ma liste</label>
-                        <input  id="btn_my_list" type="radio" name="choice_list" checked/>
+                        
+                        <input  id="btn_my_list" type="radio" name="choice_list" disabled/>
+                        <label class="cursor_pointer btn_my_list display_hidden btn_filtre_submit mx-0 my-0" for="btn_my_list" >Ma liste</label>
 
-                        <label class=" btn_all_list btn_filtre_submit mx-0 my-0" for="btn_all_list">Toutes</label>
-                        <input  id="btn_all_list" type="radio" name="choice_list"/>
+                        <input  id="btn_all_list" type="radio" name="choice_list" checked/>
+                        <label class="cursor_pointer btn_all_list btn_filtre_submit mx-0 my-0" for="btn_all_list">Toutes</label>
+                        
                         
                     </div>
 
                     
                     <div class="track_line">
-                        <div class="track_circle"></div>
                         <div class="track_line_red"></div>
+                        <div class="track_circle"></div>
+                        
                         <p class="track_time text_filtre">0:00</p>
                     </div>
                         
                     <div class="nav_track">
                         <div class="reset"><img src="imgs/reset_icon.png" alt=""></div>
-                        <div class="next"><img src="imgs/next_icon.png" alt=""></div>
+                        <div class="prev"><img src="imgs/next_icon.png" alt=""></div>
                         <div class="play"><img src="imgs/play_icon.png" alt=""></div>
                         <div class="stop display_none"><img src="imgs/stop_icon.png" alt=""></div>
-                        <div class="prev"><img src="imgs/prev_icon.png" alt=""></div>
+                        <div class="next"><img src="imgs/prev_icon.png" alt=""></div>
                         <div class="loop"><img src="imgs/loop_icon.png" alt=""></div>
                         
                         <div class="volume">
-                            <img src="imgs/volume_icon.png" alt="">
-                            <div class="block_volume">
+                            <img class="volume_img" src="imgs/volume_icon.png" alt="">
+                            <div class="block_volume display_none">
                                 <span>100</span>
                                 <input class="volume_musique" type="range" value="50" id="volume_musique" min="0" max="100" step="10" >
                                 <span>0</span>
