@@ -7,6 +7,7 @@
     --main-bgc-items-main: rgba(255, 255, 255, 0.8);
     --font-family-title-main: 'Playfair Display', serif;
     --color-player-btn: rgba(151, 71, 255, 1);
+    --fond-main:black;
 }
 
 
@@ -19,10 +20,10 @@
 }
 
 .container {
-    background-color: #000000;
+    background-color: rgb(7, 4, 16);
     background-image: url(imgs/fond.png);
-    height: 100vh;
-    min-height: 800px ;
+    /* height: 100vh; */
+    /* min-height: 800px ; */
    
 }
 
@@ -65,10 +66,23 @@ footer {
 /*                     main                        */
 
 main {
+
     position: relative;
-    height: calc(100vh - 90px - 80px);
+    /* height: calc(100vh - 90px - 80px); */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items:center;
     
 }
+
+.nav_player {
+    width: 100%;
+}
+
+
 
 /* .fond {
     width: 100vmax;
@@ -89,7 +103,9 @@ main {
 
 .list_item_musique {
    
-   max-height: calc(100vh - 90px - 80px - 120px - 5px);
+   height: calc(100vh - 90px - 80px - 60px - 15px);
+   min-height: 430px;
+   /* max-height: calc(100vh - 90px - 80px - 120px - 5px); */
     overflow: auto;
 }
 
@@ -225,12 +241,16 @@ main {
 
 .player {
     height: calc(100vh - 90px - 80px - 60px);
+    min-height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    margin-bottom: 2%;
+    margin-top: 2%;
 }
+
+
 
 
 /*            title song              */
@@ -240,7 +260,8 @@ main {
     justify-content: center;
     align-items: center;
     width: 600px;
-    height: 80px;
+    min-height: 60px;
+    /* height: 80px; */
     border-radius: 15px;
     background-color: var(--main-bgc-items-main);
     font-size: 32px;
@@ -258,7 +279,8 @@ main {
     justify-content: space-evenly;
     align-items: center;
     width: 600px;
-    height: 400px;
+   min-height:350px;
+    /* height: 400px; */
     border-radius: 30px;
     background-color: var(--main-bgc-items-main);
     font-size: 32px;
@@ -324,6 +346,7 @@ main {
     height: 30px ;
     background-color: var(--color-player-btn);
     border-radius: 50%;
+    cursor: pointer;
     
 }
 

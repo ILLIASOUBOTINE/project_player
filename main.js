@@ -7,16 +7,24 @@ const btnMyList = document.querySelector(".btn_my_list");
 const inputAllList = document.querySelector("#btn_all_list");
 const inputMyList = document.querySelector("#btn_my_list");
 const inpVolumeMusique = document.querySelector(".volume_musique");
+const containerElem = document.querySelector(".container");
+const inpSearchAllSong = document.querySelector("#inpSearchAllSong");
+const inpSearchMySong = document.querySelector("#inpSearchMySong");
 
 
-console.dir(inpVolumeMusique);
+console.dir(listAllSongs);
 console.dir(demoPlayer);
 console.dir(navTrack);
 
-let arrUrlSongs = ['5_Nizza-Soldat.mp3','3002-Делить_с_тобой.mp3','basta-mama.mp3'];
+let arrUrlSongs = ['5_Nizza-Soldat.mp3','3002-Делить_с_тобой.mp3','basta-mama.mp3','Ricky Rich, Gims-Say Oui.mp3',
+ 'Градусы - О тебе думаю.mp3', 'Ritt Momney, Shane T - Sometime.mp3', 'Dabro - Юность.mp3', 'Artik - Asti - Истеричка.mp3',
+'Lina Maly - Schmerz Vereint.mp3', 'Revelle - Feuer Im Kamin.mp3', 'Koffee - West Indies.mp3'];
 let arrTime = [];
 let arrSongs = [];
 let arrMyList = [];
+let setInervalChangeFond;
+let setInter1;
+// let countX = -25;
 
 class Song {
     title;
@@ -35,6 +43,7 @@ class Song {
 class MyPlayer {
     myDemoPlayer;
     loopSong = false;
+    active = false;
     volume = 0.5;
     numTrack = 0;
     currentTime = 0;
@@ -48,16 +57,28 @@ class MyPlayer {
     }
 
     play(){
+        changeFond();
+        
         fooPlay(this.myDemoPlayer, this.playList, this.numTrack, this.historyList);
         this.myDemoPlayer.currentTime = this.currentTime;
-        const setInter1 = setInterval(()=> {
+        this.myDemoPlayer.play();
+        this.active = true;
+        
+        setInter1 = setInterval(()=> {
             if (this.myDemoPlayer.ended && this.playList.length > this.numTrack  ) {
                 this.numTrack++;
                 if(this.playList.length > this.numTrack) {
-                   fooPlay(this.myDemoPlayer, this.playList, this.numTrack, this.historyList); 
+                   fooPlay(this.myDemoPlayer, this.playList, this.numTrack, this.historyList);
+                   this.myDemoPlayer.play(); 
                 }else {
-                    clearInterval(setInter1);
+                    // clearInterval(setInter1);
+                    // clearInterval(setInervalChangeFond);
+                    this.stop();
+                    this.currentTime = 0;
                     this.numTrack = 0;
+                    // this.reset();
+                    document.querySelector(".play").classList.remove("display_none");
+                    document.querySelector(".stop").classList.add("display_none");
                 }
             }    
         }, 10)
@@ -66,12 +87,34 @@ class MyPlayer {
     stop(){
         this.myDemoPlayer.pause();
         this.currentTime = this.myDemoPlayer.currentTime;
-        //  clearInterval(setInter1);
+        clearInterval(setInter1);
+        clearInterval(setInervalChangeFond);
+        this.active = false;
     }
 
     reset(){
-        this.currentTime = 0;
-        this.play();
+        if (this.active) {
+            // this.stop();
+            this.currentTime = 0;
+            clearInterval(setInervalChangeFond);
+            this.play();
+        }else {
+            this.myDemoPlayer.volume = 0;
+            clearInterval(setInervalChangeFond);
+            this.play();
+
+            setTimeout(()=>{
+                this.stop(); 
+                this.currentTime = 0.001; 
+                this.myDemoPlayer.currentTime = this.currentTime;
+                this.myDemoPlayer.volume = this.volume;
+            },100)
+            
+           
+            // document.querySelector(".title_song").textContent = this.playList[this.numTrack].title;
+        }
+        
+        
     }
 
     loop(){
@@ -80,22 +123,38 @@ class MyPlayer {
     }
 
     next(){
-        if (this.numTrack < this.playList.length - 1) {
-           ++this.numTrack; 
-        }else { 
-            this.numTrack = 0;
-        }
-        this.reset();
+
+       
+            if (this.numTrack < this.playList.length - 1) {
+                ++this.numTrack; 
+            }else { 
+                this.numTrack = 0;
+            }
+            this.reset();
+      
+        
     }
 
     prev(){
-        if (this.numTrack > 0) {
-           --this.numTrack; 
-        }else { 
-            this.numTrack = this.playList.length - 1;
-        }
-        this.reset();
+        
+            if (this.numTrack > 0) {
+                --this.numTrack; 
+            }else { 
+                this.numTrack = this.playList.length - 1;
+            }
+            this.reset();  
+     
+        
     }
+
+    // prev(){
+    //     if (this.numTrack > 0) {
+    //        --this.numTrack; 
+    //     }else { 
+    //         this.numTrack = this.playList.length - 1;
+    //     }
+    //     this.reset();
+    // }
 
     setVolum(vol){
         this.volume = vol;
@@ -113,7 +172,7 @@ function createSong(arr,arrTime,arrSongs) {
         let url = `chansons/${song}`;
         let newSong = new Song(propsSong[1], arrTime[i], url);
         arrSongs.push(newSong);
-        console.log(newSong); 
+        // console.log(newSong); 
         i++;
     }
    
@@ -178,9 +237,10 @@ function fooPlay(demoPlayer,arrSongs,numTrack,historyList) {
     demoPlayer.src = arrSongs[numTrack].url;
     historyList.push(arrSongs[numTrack]);
     console.log(historyList);
-    document.querySelector(".title_song").textContent = historyList[historyList.length -1].title;
+    document.querySelector(".title_song").textContent = arrSongs[numTrack].title;
+    // document.querySelector(".title_song").textContent = historyList[historyList.length -1].title;
     
-    demoPlayer.play();
+    // demoPlayer.play();
 }
 
 function fooConverTime(sec) {
@@ -215,10 +275,9 @@ setTimeout(()=>{
     const trackLineRed = document.querySelector(".track_line_red");
     let coordX = 0;
     // console.dir(trackLine);
-    setIntervalTrack = setInterval(() => {
-        if (player.myDemoPlayer.currentTime !== 0) {
-            trackTime.textContent = fooConverTime(Math.round(player.myDemoPlayer.duration 
-            - player.myDemoPlayer.currentTime));
+     setInterval(() => {
+        if (player.myDemoPlayer.currentTime !== 0 ) {
+            trackTime.textContent = fooConverTime(Math.round(player.myDemoPlayer.duration - player.myDemoPlayer.currentTime));
             coordX = trackLine.clientWidth*Math.round(player.myDemoPlayer.currentTime)/Math.round(player.myDemoPlayer.duration);
             trackCircle.style.left = `${coordX - 25}px`;
             trackLineRed.style.width = `${coordX - 25}px`;
@@ -228,6 +287,28 @@ setTimeout(()=>{
             trackLineRed.style.width = `0px`;
         }
     }, 10)
+
+    let x1;
+    let x2;
+    
+    console.dir(trackCircle);
+    trackCircle.addEventListener("dragstart", (e) => {
+        // console.log(x1 = e.pageX);
+        console.log(x1 = e.pageX);
+        // console.log(e.pageY);
+    })
+    trackCircle.addEventListener("dragend", (e) => {
+
+        console.log(x2 = e.pageX );
+        // console.log(e.pageY);
+      let countX = coordX + x2 - x1;
+       player.stop();
+        player.currentTime = countX*Math.round(player.myDemoPlayer.duration)/trackLine.clientWidth;
+        player.play();
+        // trackCircle.style.left = `${countX}px`;
+        // trackLineRed.style.width = `${countX}px`;
+
+     })
 
     ///////////// trackTime ///////////////
     
@@ -243,7 +324,8 @@ setTimeout(()=>{
                     arrMyList.push(item);
                     if (arrMyList.length === 1) {
                         btnMyList.classList.remove("display_hidden");
-                        
+                        listMySongs.previousElementSibling.classList.remove("display_none");
+
                     }
                     console.log(arrMyList);
                 } 
@@ -261,9 +343,12 @@ setTimeout(()=>{
                     player.playList = [item];
                     player.numTrack = 0;
                     inputAllList.checked = false;
+                    inputMyList.checked = false;
                     console.log(player.playList);
-                    
-                    player.reset();
+
+                    player.currentTime = 0;
+                    clearInterval(setInervalChangeFond);
+                    player.play();
                 } 
              }
         }
@@ -285,6 +370,10 @@ setTimeout(()=>{
                         arrMyList.splice(i,1);
                         if (arrMyList.length === 0) {
                             btnMyList.classList.add("display_hidden");
+                            listMySongs.previousElementSibling.classList.add("display_none");
+                            player.playList = arrSongs;
+                            inputAllList.checked = true;
+                            player.numTrack = 0;
                         }
                         // console.log(arrMyList);
                     } 
@@ -306,6 +395,7 @@ setTimeout(()=>{
             // }
             
             console.log(player.playList);
+            clearInterval(setInervalChangeFond);
             player.play() 
         }
 
@@ -318,9 +408,7 @@ setTimeout(()=>{
         }
 
         if (e.target.parentElement.className === "reset") {
-            // console.dir(e.target.parentElement);
-            document.querySelector(".play").classList.add("display_none");
-            document.querySelector(".stop").classList.remove("display_none");
+            
 
             player.reset();
         }
@@ -332,17 +420,13 @@ setTimeout(()=>{
         }
 
         if (e.target.parentElement.className === "next") {
-            // console.dir(e.target.parentElement);
-            document.querySelector(".play").classList.add("display_none");
-            document.querySelector(".stop").classList.remove("display_none");
+         
 
             player.next();
         }
 
         if (e.target.parentElement.className === "prev") {
-            // console.dir(e.target.parentElement);
-            document.querySelector(".play").classList.add("display_none");
-            document.querySelector(".stop").classList.remove("display_none");
+            
 
             player.prev();
         }
@@ -365,34 +449,90 @@ setTimeout(()=>{
         player.playList = arrSongs;
         player.numTrack = 0;
         console.log(player.playList);
-                    
-        player.reset();
+           
+         player.reset();
     });
 
     btnMyList.addEventListener("click", (e)=>{
-        if (arrMyList.length > 0) {
+        
             inputMyList.disabled = false;
             player.playList = arrMyList;
             player.numTrack = 0;
             console.log(player.playList);
+         
             player.reset();
-        }else {
-            inputMyList.disabled = true;
-            player.playList = arrSongs;
-            inputMyList.checked = false;
-            player.stop();
-            btnMyList.classList.add("display_hidden");
-        }
+        
+           
     });
     
 
+   
 }, 1000);
 
 
+let arrColor = ['rgb(151, 71, 255)', 'rgb(161, 64, 32)', 'rgb(161, 109, 32)',
+'rgb(161, 152, 32)', 'rgb(135, 161, 32)', 'rgb(75, 161, 32)', 'rgb(32, 161, 64)',
+'rgb(32, 161, 129)', 'rgb(32, 101, 161)', 'rgb(32, 45, 161)', 'rgb(7, 4, 16)'];
+
+function changeFond() {
+    let cout = 0;
+    setInervalChangeFond = setInterval(()=>{
+        containerElem.style.backgroundColor = arrColor[cout];
+        // console.log(arrColor[cout]);
+        cout++;
+        if (cout === arrColor.length) {
+            cout = 0;
+        }
+    },1000)
+}
+    
+
+// inpSearchAllSong.addEventListener("input", (e)=>{
+//     let str = e.target.value;
+//     console.log(str);
+//     let resultArr = arrSongs.filter((song)=>{
+//       return  song.title.toLowerCase().match(str.toLowerCase());
+//     })
+//     console.log(resultArr);
+// })
+          //     Search  All lIst      ////////
+inpSearchAllSong.addEventListener("input", (e)=>{
+    let str = e.target.value;
+    console.log(str);
+    for(let song of listAllSongs.children){
+        if (song.firstChild.textContent.toLowerCase().match(str.toLowerCase())) {
+                
+        } else {
+             song.classList.add("display_none");
+        } 
+    }
+    
+    if (str === '') {
+        for(let song of listAllSongs.children){
+           song.classList.remove("display_none");
+            
+        }
+    }
+})
 
 
-
-
-
+inpSearchMySong.addEventListener("input", (e)=>{
+    let str = e.target.value;
+    console.log(str);
+    for(let song of listMySongs.children){
+        if (song.firstChild.textContent.toLowerCase().match(str.toLowerCase())) {
+                
+        } else {
+             song.classList.add("display_none");
+        } 
+    }
+    
+    if (str === '') {
+        for(let song of listMySongs.children){
+           song.classList.remove("display_none");
+            
+        }
+    }
+})
 
 
