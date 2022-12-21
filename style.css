@@ -102,7 +102,8 @@ main {
 }
 
 .list_item_musique {
-   
+    display: flex;
+    flex-direction: column;
    height: calc(100vh - 90px - 80px - 60px - 15px);
    min-height: 430px;
    /* max-height: calc(100vh - 90px - 80px - 120px - 5px); */
@@ -341,7 +342,8 @@ main {
 .track_circle {
     position: absolute;
     top: -10px;
-    left: -25px;
+    /* left: -25px; */
+    left: 0;
     width: 30px;
     height: 30px ;
     background-color: var(--color-player-btn);
@@ -364,19 +366,31 @@ main {
     position: absolute;
     /* width: 40px ; */
     top: -10px;
-    right: -50px;
+    right: -80px;
     
 }
 
 /*                 nav_track              */
 
+
+.nav_track_menu {
+
+    width:80% ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 30%;
+    
+}
+
 .nav_track {
 
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    height: 30%;
+    align-items: center;
+    
     
 }
 
