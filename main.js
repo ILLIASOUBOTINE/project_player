@@ -17,11 +17,11 @@ console.dir(listAllSongs);
 console.dir(demoPlayer);
 console.dir(navTrack);
 
-let arrUrlSongs = ['5_Nizza-Soldat.mp3','3002-Делить_с_тобой.mp3','basta-mama.mp3','Ricky Rich, Gims-Say Oui.mp3',
- 'Градусы - О тебе думаю.mp3', 'Ritt Momney, Shane T - Sometime.mp3', 'Dabro - Юность.mp3', 'Artik - Asti - Истеричка.mp3',
-'Lina Maly - Schmerz Vereint.mp3', 'Revelle - Feuer Im Kamin.mp3', 'Koffee - West Indies.mp3', 'Gims, Vitaa - Prends Ma Main.mp3',
-'Eugénie - Silence.mp3', 'Nothing, Nowhere - Pieces Of You.mp3', 'Debe - Nice Guy.mp3', 'Upsahl - Thriving.mp3', '24kgoldn, Lil Tecca - Prada.mp3',
-'Rachel Mae Hannon - Tell Me.mp3', 'Elaine Mai, Loah - Waiting To Breathe.mp3', 'Matt Maltese - We Need To Talk.mp3'];
+let arrUrlSongs = ['Ricky Rich, Gims-Say Oui.mp3','Lina Maly - Schmerz Vereint.mp3',
+ 'Градусы - О тебе думаю.mp3', 'Ritt Momney, Shane T - Sometime.mp3', 'Dabro - Юность.mp3','Elaine Mai, Loah - Waiting To Breathe.mp3', 'Artik - Asti - Истеричка.mp3',
+ 'Revelle - Feuer Im Kamin.mp3', '3002-Делить_с_тобой.mp3','Koffee - West Indies.mp3', 'Gims, Vitaa - Prends Ma Main.mp3',
+'Eugénie - Silence.mp3', 'Nothing, Nowhere - Pieces Of You.mp3','5_Nizza-Soldat.mp3', 'Debe - Nice Guy.mp3', 'Upsahl - Thriving.mp3', '24kgoldn, Lil Tecca - Prada.mp3',
+'Rachel Mae Hannon - Tell Me.mp3','basta-mama.mp3',  'Matt Maltese - We Need To Talk.mp3'];
 let arrTime = [];
 let arrSongs = [];
 let arrMyList = [];
@@ -54,6 +54,7 @@ class MyPlayer {
     playList = [];
     historyList = [];
     randomSong = false;
+    fondActive = true;
     oldPlayList = [];
 
     constructor(myDemoPlayer, playList) {
@@ -63,7 +64,11 @@ class MyPlayer {
     }
 
     play(){
-        // changeFond();
+
+        if (this.fondActive) {
+            changeFond();
+        }
+        
         
         fooPlay(this.myDemoPlayer, this.playList, this.numTrack, this.historyList);
         this.myDemoPlayer.currentTime = this.currentTime;
@@ -167,6 +172,27 @@ class MyPlayer {
         
     }
 
+    rewindMinus(){
+        this.myDemoPlayer.currentTime = this.myDemoPlayer.currentTime - 10;
+        this.currentTime = this.myDemoPlayer.currentTime;
+    }
+
+    rewindPlus(){
+        this.myDemoPlayer.currentTime = this.myDemoPlayer.currentTime + 10;
+        this.currentTime = this.myDemoPlayer.currentTime;
+    }
+
+    stopScreen(){
+        this.stop();
+        this.fondActive = !this.fondActive;
+        this.play();
+    }
+
+    mute(){
+        this.myDemoPlayer.muted = !this.myDemoPlayer.muted;
+    }
+
+
 
 
 }
@@ -223,9 +249,48 @@ function fooPlay(demoPlayer,arrSongs,numTrack,historyList) {
     historyList.push(arrSongs[numTrack]);
     console.log(historyList);
     document.querySelector(".title_song").textContent = arrSongs[numTrack].title;
-    // document.querySelector(".title_song").textContent = historyList[historyList.length -1].title;
+    document.querySelector(".author_song").textContent = arrSongs[numTrack].author;
+   
+    for(let item of listAllSongs.children){
+        item.classList.remove("item_musique_active");
+    }
+    if (listMySongs.children.length > 0) {
+        for(let item of listMySongs.children){
+            item.classList.remove("item_musique_active");
+        }
+    }
     
-    // demoPlayer.play();
+   
+        if (inputAllList.checked) {
+            for(let item of listAllSongs.children){
+                if (arrSongs[numTrack].title === item.firstChild.textContent) {
+                    item.classList.add("item_musique_active");
+                } 
+
+            }
+            
+        }else if(!inputAllList.checked && !inputMyList.checked) {
+            for(let item of listAllSongs.children){
+                if (arrSongs[numTrack].title === item.firstChild.textContent) {
+                    item.classList.add("item_musique_active");
+                } 
+
+            }
+            // listAllSongs.children[numTrack].classList.add("item_musique_active");
+        }else if(inputMyList.checked) {
+            for(let item of listMySongs.children){
+                if (arrSongs[numTrack].title === item.firstChild.textContent) {
+                    item.classList.add("item_musique_active");
+                } 
+            }
+            // listMySongs.children[numTrack].classList.add("item_musique_active");
+        }
+       
+        // document.querySelector(".title_song").textContent = historyList[historyList.length -1].title;
+        
+        // demoPlayer.play();
+
+        
 }
 
 function fooConverTime(sec) {
@@ -259,7 +324,7 @@ function trackLineAnimation(){
         if (player.myDemoPlayer.currentTime !== 0 ) {
             trackTime.textContent = fooConverTime(Math.round(player.myDemoPlayer.duration - player.myDemoPlayer.currentTime));
             let coordX = trackLine.clientWidth*Math.round(player.myDemoPlayer.currentTime)/Math.round(player.myDemoPlayer.duration);
-            trackCircle.style.left = `${coordX }px`;
+            trackCircle.style.left = `${coordX  }px`;
             trackLineRed.style.width = `${coordX }px`;
         }else {
             trackTime.textContent = '0:00' ;
@@ -457,12 +522,15 @@ trackCircle.addEventListener('mousemove', (e) => {
          y2 = e.pageY;
         if (x2 <= trackLine.getBoundingClientRect().x) {
             trackCircle.style.left = `${(0)}px`;
+            trackTime.textContent = '0:00';
         }else if(x2 >= trackLine.getBoundingClientRect().x + trackLine.getBoundingClientRect().width){
             trackCircle.style.left = `${(trackLine.getBoundingClientRect().width - trackCircle.clientWidth)}px`;
         }else {
             trackCircle.style.left = `${(countX + x2 - x1)}px`;
+            trackTime.textContent = fooConverTime(Math.round((countX + x2 - x1)*(player.myDemoPlayer.duration/trackLine.clientWidth)));
             // console.log(x2);
         }
+        
         console.log(trackCircleActive); 
       
     }
@@ -570,6 +638,8 @@ main.addEventListener('mouseup', (e) => {
                     player.numTrack = 0;
                     inputAllList.checked = false;
                     inputMyList.checked = false;
+                    document.querySelector(".random").classList.remove("active_nav_track");
+                    player.randomSong = false;
                     console.log(player.playList);
 
                     player.randomSong = false;
@@ -666,11 +736,32 @@ main.addEventListener('mouseup', (e) => {
 
         if (e.target.parentElement.classList.contains("random")) {
             console.dir(e.target);
-            e.target.parentElement.classList.toggle("active_nav_track");
-
-            player.random();
+           
+            if(inputAllList.checked || inputMyList.checked){
+                e.target.parentElement.classList.toggle("active_nav_track");
+                player.random();
+            }
+            
         }
 
+        if (e.target.parentElement.className === "rewind_minus") {
+            player.rewindMinus();
+        }
+
+        if (e.target.parentElement.className === "rewind_plus") {
+            player.rewindPlus();
+        }
+
+        if (e.target.parentElement.classList.contains("stop_screen")) {
+            e.target.classList.toggle("active_nav_track");
+            player.stopScreen();
+        }
+
+        if (e.target.parentElement.classList.contains("mute")) {
+            e.target.classList.toggle("active_nav_track");
+            player.mute();
+            // inpVolumeMusique.value = 0;
+        }
 
 
     });
@@ -709,12 +800,32 @@ main.addEventListener('mouseup', (e) => {
 
     btnMyList.addEventListener("click", (e)=>{
         
+        if (player.randomSong) {
+            // player.playList;
+            for(let song of listMySongs.children){
+                for (let i = 0; i < player.playList.length; i++) {
+                    if (song.firstChild.textContent === player.playList[i].title ) {
+                        console.log(song);
+                        song.style.order = `${i}`;
+                    }
+                    
+                }
+            }
+            
+        }else {
+            for(let song of listMySongs.children){
+                song.style.order = `1`;
+            }
+
             inputMyList.disabled = false;
             player.playList = arrMyList;
             player.numTrack = 0;
             console.log(player.playList);
          
             player.reset();
+        }
+        
+            
        
           
         

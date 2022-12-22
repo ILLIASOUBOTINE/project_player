@@ -104,8 +104,8 @@ main {
 .list_item_musique {
     display: flex;
     flex-direction: column;
-   height: calc(100vh - 90px - 80px - 60px - 15px);
-   min-height: 430px;
+   height: calc(100vh - 90px - 80px - 60px - 25px );
+   min-height: 425px;
    /* max-height: calc(100vh - 90px - 80px - 120px - 5px); */
     overflow: auto;
 }
@@ -245,31 +245,55 @@ main {
     min-height: 450px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 2%;
-    margin-top: 2%;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 
 
 
 /*            title song              */
-
+.title_player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    min-height: 80px;
+    /* height: 80px; */
+    border-radius: 15px;
+    background-color: var(--main-bgc-items-main);
+   
+    margin-bottom: 20px;
+}
 .title_song {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 600px;
-    min-height: 60px;
+    width: 100%;
     /* height: 80px; */
-    border-radius: 15px;
-    background-color: var(--main-bgc-items-main);
     font-size: 32px;
     font-family: var(--font-family-title);
     font-weight: 400;
     color: var(--color-text-title);
-    margin-bottom: 50px;
+    padding-top: 5px;
+    
+}
+
+.author_song {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    /* height: 80px; */
+    font-size: 20px;
+    font-family: var(--font-family-title);
+    font-weight: 400;
+    color: var(--color-text-title);
+    padding-right: 10px;
+    padding-bottom: 5px;
 }
 
 /*             motor             */
@@ -277,7 +301,7 @@ main {
 .motor {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 600px;
    min-height:350px;
@@ -366,7 +390,7 @@ main {
     position: absolute;
     /* width: 40px ; */
     top: -10px;
-    right: -80px;
+    right: -75px;
     
 }
 
@@ -378,7 +402,7 @@ main {
     width:80% ;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: 30%;
     
@@ -390,6 +414,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
     
     
 }
@@ -397,7 +422,7 @@ main {
 .active_nav_track {
     background-color: rgb(230, 161, 227);
     border-radius: 50%;
-    transform: rotate(45deg);
+    /* transform: rotate(45deg); */
 
 }
 
@@ -467,4 +492,8 @@ main {
 
 .display_hidden {
    visibility: hidden;
+}
+
+.item_musique_active{
+    background-color: rgb(230, 161, 227);;
 }
