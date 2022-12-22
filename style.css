@@ -3,7 +3,7 @@
     --main-bgc-white: #FFFFFF;
     --font-family-title: 'Rock Salt', cursive;
     --font-family-fill: 'Inter', sans-serif;
-    --color-text-main: #000000;
+    --color-text-main: black;
     --main-bgc-items-main: rgba(255, 255, 255, 0.8);
     --font-family-title-main: 'Playfair Display', serif;
     --color-player-btn: rgba(151, 71, 255, 1);

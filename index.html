@@ -1,220 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Rock+Salt&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
     <title>Player</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Rock+Salt&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    
-
-</head>
-<body>
+  </head>
+  <body>
     <div class="container d-flex flex-column px-0 justify-content-between">
-         <header>
-            <p class="title_header">Ma musique</p>
-        </header>
+      <header>
+        <p class="title_header">Ma musique</p>
+      </header>
 
-        <main>
-            <!-- <div class="fond"></div> -->
-            <!--                       menu                          -->
-            <div class="nav_player d-flex flex-wrap justify-content-between align-items-center">
+      <main>
+        <!--                       menu                          -->
+        <div
+          class="nav_player d-flex flex-wrap justify-content-between align-items-center"
+        >
+          <div>
+            <button
+              class="dropdown-toggle style_item_list title_text_main border-0"
+              type="button"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="false"
+            >
+              Ma liste de lecture
+            </button>
 
-                <div>
-                <button class="dropdown-toggle style_item_list title_text_main border-0 " type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" >
-                    Ma liste de lecture
-                </button>
-
-                <div class="list_musique dropdown-menu  pt-0 pb-0 rounded-0 " >
-                   
-                    <div class="div_search style_item_list display_none"> 
-                        <input id="inpSearchMySong" type="text" class="search" placeholder="Titre">
-                            <img class="search_icon" src="imgs/search_icon.svg" alt="">
-                        </input>
-                    </div>
-                    <div class="list_item_musique" id="my_songs">
-                        <!-- item_musique -->
-                    </div>
-                </div>
-                </div>
-
-                <!-- <div >
-                    <button class="dropdown-toggle style_item_list title_text_main border-0 " type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" >
-                        Filtre
-                    </button>
-    
-                    <div class=" dropdown-menu bgc pt-0 pb-0 rounded-0 " >
-
-                        <ul class="list-group bgc border-bottom">
-                            <li class="title_filtre ">Duree</li>
-                            <li class="list-group-item text_filtre bgc border-0 py-0">
-                              <input class="duration_musique" type="range" value="0" id="duration_musique" min="0" max="360" step="10" >
-                              <p class="text_filtre text-end ">0s</p>
-                            </li>
-                          
-                        </ul>
-                        <ul class="list-group bgc">
-                            <li class="title_filtre ">Style</li>
-                            <li class="list-group-item text_filtre bgc border-0 py-0">
-                              <input class="form-check-input me-1" type="checkbox" value="pop" id="pop">
-                              <label class="form-check-label stretched-link" for="pop">Pop</label>
-                            </li>
-                            <li class="list-group-item text_filtre bgc border-0 py-0">
-                              <input class="form-check-input me-1" type="checkbox" value="rock" id="rock">
-                              <label class="form-check-label stretched-link" for="rock">Rock</label>
-                            </li>
-                            <li class="list-group-item text_filtre bgc border-0 py-0">
-                              <input class="form-check-input me-1" type="checkbox" value="classique" id="classique">
-                              <label class="form-check-label stretched-link" for="classique">Classique</label>
-                            </li>
-                            <li class="list-group-item text_filtre bgc py-0">
-                                <input class="form-check-input me-1" type="checkbox" value="populaire" id="populaire">
-                                <label class="form-check-label stretched-link" for="populaire">Populaire</label>
-                            </li>
-                        </ul>
-                        <ul class="list-group bgc">
-                            <li class="title_filtre ">Language</li>
-                            <li class="list-group-item text_filtre bgc border-0 py-0">
-                              <input class="form-check-input me-1" type="checkbox" value="en" id="en">
-                              <label class="form-check-label stretched-link" for="en">En</label>
-                            </li>
-                            <li class="list-group-item text_filtre bgc border-0 py-0">
-                              <input class="form-check-input me-1" type="checkbox" value="fr" id="fr">
-                              <label class="form-check-label stretched-link" for="fr">Fr</label>
-                            </li>
-                            <li class="list-group-item text_filtre bgc py-0">
-                              <input class="form-check-input me-1" type="checkbox" value="rus" id="rus">
-                              <label class="form-check-label stretched-link" for="rus">Rus</label>
-                            </li>
-                           
-                        </ul>
-                        <button class="btn_filtre_submit">appliquer</button>
-                        
-                    </div>
-                </div> -->
-
-                <div>
-                    <button class="dropdown-toggle style_item_list title_text_main border-0 " type="button" data-bs-toggle="dropdown" data-bs-auto-close="false" >
-                        Toutes les chansons
-                    </button>
-    
-                    <div class="list_musique dropdown-menu  pt-0 pb-0 rounded-0 " >
-                        <!-- <p class=" style_item_list title_text_main">Toutes les chansons</p> -->
-                        <div class="div_search style_item_list"> 
-                            <input id="inpSearchAllSong" type="text" class="search" placeholder="Titre">
-                                <img class="search_icon" src="imgs/search_icon.svg" alt="">
-                            </input>
-                        </div>
-                        <div class="list_item_musique" id="all_songs">
-                            <!-- <div class="item_musique style_item_list dropdown-item">
-                                <p class="title_item_musique">Lourmarin</p>
-                                <p class="props_item_musique"><img src="imgs/add_icon.svg" alt=""><span>musique pop</span><span>en</span><span>3:53</span></p>
-                            </div> -->
-
-                            
-                        </div>
-                    </div>
-                </div>
-
+            <div class="list_musique dropdown-menu pt-0 pb-0 rounded-0">
+              <div class="div_search style_item_list display_none">
+                <input
+                  id="inpSearchMySong"
+                  type="text"
+                  class="search"
+                  placeholder="Titre"
+                />
+                <img class="search_icon" src="imgs/search_icon.svg" alt="" />
+              </div>
+              <div class="list_item_musique" id="my_songs">
+                <!-- item_musique -->
+              </div>
             </div>
-            <!--                         player              -->
-            <div class="player">
-            <!--                          title song               -->
-                 <div class="title_player">
-                    <p class="title_song"> Titre</p>
-                    <p class="author_song">  </p> 
+          </div>
+
+          <div>
+            <button
+              class="dropdown-toggle style_item_list title_text_main border-0"
+              type="button"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="false"
+            >
+              Toutes les chansons
+            </button>
+
+            <div class="list_musique dropdown-menu pt-0 pb-0 rounded-0">
+              <div class="div_search style_item_list">
+                <input
+                  id="inpSearchAllSong"
+                  type="text"
+                  class="search"
+                  placeholder="Titre"
+                />
+                <img class="search_icon" src="imgs/search_icon.svg" alt="" />
+              </div>
+              <div class="list_item_musique" id="all_songs"></div>
+            </div>
+          </div>
+        </div>
+        <!--                         player              -->
+        <div class="player">
+          <!--                          title song               -->
+          <div class="title_player">
+            <p class="title_song">Titre</p>
+            <p class="author_song"></p>
+          </div>
+
+          <!--                          motor              -->
+          <div class="motor">
+            <div class="btn_choice_list" draggable="false">
+              <input
+                id="btn_my_list"
+                type="radio"
+                name="choice_list"
+                disabled
+              />
+              <label
+                class="cursor_pointer btn_my_list display_hidden btn_filtre_submit mx-0 my-0"
+                for="btn_my_list"
+                draggable="false"
+                >Ma liste</label
+              >
+
+              <input
+                id="btn_all_list"
+                type="radio"
+                name="choice_list"
+                checked
+              />
+              <label
+                class="cursor_pointer btn_all_list btn_filtre_submit mx-0 my-0"
+                for="btn_all_list"
+                draggable="false"
+                >Toutes</label
+              >
+            </div>
+
+            <div class="track_line">
+              <div class="track_line_red"></div>
+              <div class="track_circle" draggable="false"></div>
+              <!-- draggable="true" -->
+              <p class="track_time text_filtre" draggable="false">0:00</p>
+            </div>
+
+            <div class="nav_track_menu" draggable="false">
+              <div class="nav_track">
+                <div class="reset">
+                  <img src="imgs/reset_icon.png" alt="" />
                 </div>
+                <div class="prev"><img src="imgs/next_icon.png" alt="" /></div>
+                <div class="play"><img src="imgs/play_icon.png" alt="" /></div>
+                <div class="stop display_none">
+                  <img src="imgs/stop_icon.png" alt="" />
+                </div>
+                <div class="next"><img src="imgs/prev_icon.png" alt="" /></div>
+                <div class="loop"><img src="imgs/loop_icon.png" alt="" /></div>
 
-             <!--                          motor              -->
-                <div class="motor">
-                    <div class="btn_choice_list ">
+                <div class="volume">
+                  <img class="volume_img" src="imgs/volume_icon.png" alt="" />
+                  <div class="block_volume display_none">
+                    <span>100</span>
+                    <input
+                      class="volume_musique"
+                      type="range"
+                      value="50"
+                      id="volume_musique"
+                      min="0"
+                      max="100"
+                      step="10"
+                    />
+                    <span>0</span>
+                  </div>
+                </div>
+              </div>
+              <div class="nav_track">
+                <div class="random">
+                  <img src="imgs/ps_random.svg" alt="" />
+                </div>
+                <div class="rewind_minus">
+                  <img src="imgs/rewind_minus.svg" alt="" />
+                </div>
+                <div class="stop_screen">
+                  <img src="imgs/stop_screen.svg" alt="" />
+                </div>
+                <div class="rewind_plus">
+                  <img src="imgs/rewind_plus.svg" alt="" />
+                </div>
+                <div class="mute"><img src="imgs/mute.svg" alt="" /></div>
+                <!--      sd         -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
 
-                        
-                        <input  id="btn_my_list" type="radio" name="choice_list" disabled/>
-                        <label class="cursor_pointer btn_my_list display_hidden btn_filtre_submit mx-0 my-0" for="btn_my_list" >Ma liste</label>
+      <footer
+        class="d-flex pt-2 flex-wrap justify-content-around align-items-center"
+      >
+        <p class="text_footer col-md-3">
+          Interdiction de vente de boissons alcooliques aux mineurs de moins de
+          18 ans. La preuve de majorité de l'acheteur est exigée au moment de la
+          vente en ligne. Code de la santé publique, Art. L.3342-1 et L.3342-3
+        </p>
 
-                        <input  id="btn_all_list" type="radio" name="choice_list" checked/>
-                        <label class="cursor_pointer btn_all_list btn_filtre_submit mx-0 my-0" for="btn_all_list">Toutes</label>
-                        
-                        
-                    </div>
+        <p
+          class="title_footer col-md-3 d-flex align-items-center justify-content-center"
+        >
+          Ma musique
+        </p>
 
-                    
-                    <div class="track_line">
-                        <div class="track_line_red"></div>
-                        <div class="track_circle" ></div>
-                        <!-- draggable="true" -->
-                        <p class="track_time text_filtre">0:00</p>
-                    </div>
-                        
-                    <div class="nav_track_menu">
-                        <div class="nav_track">
-                            <div class="reset"><img src="imgs/reset_icon.png" alt=""></div>
-                            <div class="prev"><img src="imgs/next_icon.png" alt=""></div>
-                            <div class="play"><img src="imgs/play_icon.png" alt=""></div>
-                            <div class="stop display_none"><img src="imgs/stop_icon.png" alt=""></div>
-                            <div class="next"><img src="imgs/prev_icon.png" alt=""></div>
-                            <div class="loop"><img src="imgs/loop_icon.png" alt=""></div>
-                            
-                            <div class="volume">
-                                <img class="volume_img" src="imgs/volume_icon.png" alt="">
-                                <div class="block_volume display_none">
-                                    <span>100</span>
-                                    <input class="volume_musique" type="range" value="50" id="volume_musique" min="0" max="100" step="10" >
-                                    <span>0</span>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="nav_track">
-                           
-                            <div class="random"><img src="imgs/ps_random.svg" alt=""></div>
-                            <div class="rewind_minus"><img src="imgs/rewind_minus.svg" alt=""></div>
-                            <div class="stop_screen"><img src="imgs/stop_screen.svg" alt=""></div>
-                            <div class="rewind_plus"><img src="imgs/rewind_plus.svg" alt=""></div>
-                            <div class="mute"><img src="imgs/mute.svg" alt=""></div>
-                            <!--      sd         -->
-                        </div>
-                        
-                    </div>      
-                         
-                </div>               
-                            
-            </div>                
-                        
-                       
-        </main>               
-                    
-        <footer class="d-flex pt-2 flex-wrap justify-content-around align-items-center">
-            <p class="text_footer col-md-3  ">Interdiction de vente de boissons alcooliques aux mineurs de moins de 18 ans.
-                La preuve de majorité de l'acheteur est exigée au moment de la vente en ligne.
-                Code de la santé publique, Art. L.3342-1 et L.3342-3
-            </p>
-        
-            <p  class="title_footer col-md-3 d-flex align-items-center justify-content-center">
-                Ma musique
-            </p>
-        
-            <ul class="nav col-md-3 justify-content-center align-items-center ">
-            <li class="nav-item me-3"><a href="#" class="nav-link px-2 "><img class="icon_footer" src="imgs/facebook.svg" alt=""></a></li>
-            <li class="nav-item me-3"><a href="#" class="nav-link px-2 "><img class="icon_footer" src="imgs/tiktok.svg" alt=""></a></li>
-            <li class="nav-item me-3"><a href="#" class="nav-link px-2 "><img class="icon_footer" src="imgs/instagram.svg" alt=""></a></li>
-            
-            </ul>
-        </footer>                
+        <ul class="nav col-md-3 justify-content-center align-items-center">
+          <li class="nav-item me-3">
+            <a href="#" class="nav-link px-2"
+              ><img class="icon_footer" src="imgs/facebook.svg" alt=""
+            /></a>
+          </li>
+          <li class="nav-item me-3">
+            <a href="#" class="nav-link px-2"
+              ><img class="icon_footer" src="imgs/tiktok.svg" alt=""
+            /></a>
+          </li>
+          <li class="nav-item me-3">
+            <a href="#" class="nav-link px-2"
+              ><img class="icon_footer" src="imgs/instagram.svg" alt=""
+            /></a>
+          </li>
+        </ul>
+      </footer>
     </div>
-        
-    <audio  controls class="display_none" >
-        <!-- <source src="chansons/5_Nizza-Soldat.mp3" type="audio/mp3"> -->
-	</audio>
 
-   
+    <audio controls class="display_none"></audio>
 
-  
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<script src="main.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
