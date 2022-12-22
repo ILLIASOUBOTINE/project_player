@@ -211,9 +211,14 @@ class MyPlayer {
   }
 
   stopScreen() {
-    this.stop();
-    this.fondActive = !this.fondActive;
-    this.play();
+    if (this.active) {
+      this.stop();
+      this.fondActive = !this.fondActive;
+      this.play();
+    } else {
+      this.fondActive = !this.fondActive;
+    }
+    
   }
 
   mute() {
