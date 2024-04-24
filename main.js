@@ -7,11 +7,13 @@ const btnAllList = document.querySelector(".btn_all_list");
 const btnMyList = document.querySelector(".btn_my_list");
 const inputAllList = document.querySelector("#btn_all_list");
 const inputMyList = document.querySelector("#btn_my_list");
-const inpVolumeMusique = document.querySelector(".volume_musique");
-const containerElem = document.querySelector(".container");
+const inpVolumeMusique = document.querySelector("#volume_musique");
+const inpVolumeMusique1 = document.querySelector("#volume_musique1");
+const containerElem = document.querySelector(".container1");
 const inpSearchAllSong = document.querySelector("#inpSearchAllSong");
 const inpSearchMySong = document.querySelector("#inpSearchMySong");
 const trackTime = document.querySelector(".track_time");
+const trackTimeTotal = document.querySelector(".track_time_total");
 const trackLine = document.querySelector(".track_line");
 const trackCircle = document.querySelector(".track_circle");
 const trackLineRed = document.querySelector(".track_line_red");
@@ -84,7 +86,7 @@ class MyPlayer {
   myDemoPlayer;
   loopSong = false;
   active = false;
-  volume = 0.5;
+  volume = 0.1;
   numTrack = 0;
   currentTime = 0;
   playList = [];
@@ -97,7 +99,7 @@ class MyPlayer {
     this.myDemoPlayer = myDemoPlayer;
     this.playList = playList;
     this.myDemoPlayer.volume = this.volume;
-    }
+  }
 
   play() {
     if (this.fondActive) {
@@ -128,7 +130,7 @@ class MyPlayer {
           document.querySelector(".stop").classList.add("display_none");
         }
       }
-    }, 10);
+    }, 100);
   }
 
   stop() {
@@ -143,10 +145,12 @@ class MyPlayer {
     if (this.active) {
       this.currentTime = 0;
       clearInterval(setInervalChangeFond);
+      clearInterval(setInter1);
       this.play();
     } else {
       this.myDemoPlayer.volume = 0;
       clearInterval(setInervalChangeFond);
+      clearInterval(setInter1);
       this.play();
 
       setTimeout(() => {
@@ -189,14 +193,22 @@ class MyPlayer {
   random() {
     this.randomSong = !this.randomSong;
     if (this.randomSong) {
-      this.oldPlayList = [...this.playList];
+      this.oldPlayList = this.playList;
+
       this.playList = createRadomListSong(this.playList);
+
       player.numTrack = 0;
       this.reset();
     } else {
       player.numTrack = 0;
       this.playList = this.oldPlayList;
       this.reset();
+    }
+
+    if (inputAllList.checked) {
+      reordreRandomSongs(listAllSongs);
+    } else {
+      reordreRandomSongs(listMySongs);
     }
   }
 
@@ -211,14 +223,9 @@ class MyPlayer {
   }
 
   stopScreen() {
-    if (this.active) {
-      this.stop();
-      this.fondActive = !this.fondActive;
-      this.play();
-    } else {
-      this.fondActive = !this.fondActive;
-    }
-    
+    this.stop();
+    this.fondActive = !this.fondActive;
+    this.play();
   }
 
   mute() {
@@ -307,19 +314,24 @@ function fooConverTime(sec) {
 function trackLineAnimation() {
   setIntervalTrackLine = setInterval(() => {
     if (player.myDemoPlayer.currentTime !== 0) {
-      trackTime.textContent = fooConverTime(
-        Math.round(
-          player.myDemoPlayer.duration - player.myDemoPlayer.currentTime
-        )
-      );
+      if (isNaN(player.myDemoPlayer.duration)) {
+      } else {
+        trackTime.textContent = fooConverTime(
+          Math.round(player.myDemoPlayer.currentTime)
+        );
+        trackTimeTotal.textContent = fooConverTime(
+          Math.round(player.myDemoPlayer.duration)
+        );
+      }
+
       let coordX =
         (trackLine.clientWidth * Math.round(player.myDemoPlayer.currentTime)) /
         Math.round(player.myDemoPlayer.duration);
-      trackCircle.style.left = `${coordX}px`;
+
       trackLineRed.style.width = `${coordX}px`;
     } else {
       trackTime.textContent = "0:00";
-      trackCircle.style.left = `0px`;
+
       trackLineRed.style.width = `0px`;
     }
   }, 10);
@@ -355,13 +367,27 @@ function changeFond() {
     if (cout === arrColor.length) {
       cout = 0;
     }
-  }, 1000);
+  }, 2000);
+}
+
+function reordreRandomSongs(list) {
+  if (player.randomSong) {
+    for (let song of list.children) {
+      for (let i = 0; i < player.playList.length; i++) {
+        if (song.firstChild.textContent === player.playList[i].title) {
+          song.style.order = `${i}`;
+        }
+      }
+    }
+  } else {
+    for (let song of list.children) {
+      song.style.order = `1`;
+    }
+  }
 }
 /////////////                   logique                //////////////////////////
 
 createSong(arrUrlSongs, arrSongs);
-
-
 
 for (let item of arrSongs) {
   createItemMusique(listAllSongs, item.title, item.author);
@@ -371,63 +397,36 @@ const player = new MyPlayer(demoPlayer, arrSongs);
 
 trackLineAnimation();
 
-trackCircle.addEventListener("mousedown", (e) => {
-  clearInterval(setIntervalTrackLine);
-  x1 = trackCircle.getBoundingClientRect().x + trackCircle.clientWidth / 2;
-  trackCircleActive = true;
+////////////////////// trackLine //////////////////
 
-  countX =
-    (trackLine.clientWidth * Math.round(player.myDemoPlayer.currentTime)) /
-    Math.round(player.myDemoPlayer.duration);
-});
-
-trackCircle.addEventListener("mousemove", (e) => {
-  if (trackCircleActive) {
+trackLine.addEventListener("mousedown", (e) => {
+  if (!isNaN(player.myDemoPlayer.duration)) {
+    x1 = trackLine.getBoundingClientRect().x;
     x2 = e.pageX;
-    y2 = e.pageY;
-    if (x2 <= trackLine.getBoundingClientRect().x) {
-      trackCircle.style.left = `${0}px`;
-      trackTime.textContent = "0:00";
-    } else if (
-      x2 >=
-      trackLine.getBoundingClientRect().x +
-        trackLine.getBoundingClientRect().width
-    ) {
-      trackCircle.style.left = `${
-        trackLine.getBoundingClientRect().width - trackCircle.clientWidth
-      }px`;
-    } else {
-      trackCircle.style.left = `${countX + x2 - x1}px`;
-      trackTime.textContent = fooConverTime(
-        Math.round(
-          (countX + x2 - x1) *
-            (player.myDemoPlayer.duration / trackLine.clientWidth)
-        )
-      );
-    }
+    player.currentTime = Math.round(
+      (x2 - x1) * (player.myDemoPlayer.duration / trackLine.clientWidth)
+    );
+    player.myDemoPlayer.currentTime = player.currentTime;
+
+    trackTime.textContent = fooConverTime(
+      Math.round(
+        (x2 - x1) * (player.myDemoPlayer.duration / trackLine.clientWidth)
+      )
+    );
   }
 });
 
-trackCircle.addEventListener("mouseup", (e) => {
-  trackCircleActive = false;
-  countX = trackCircle.offsetLeft;
-  player.myDemoPlayer.currentTime =
-    (countX * Math.round(player.myDemoPlayer.duration)) / trackLine.clientWidth;
-  player.currentTime = player.myDemoPlayer.currentTime;
-
-  trackLineAnimation();
-});
-
-trackCircle.addEventListener("mouseleave", (e) => {
-  if (trackCircleActive) {
-    trackCircleActive = false;
-
-    countX = trackCircle.offsetLeft;
-    player.myDemoPlayer.currentTime =
-      (countX * Math.round(player.myDemoPlayer.duration)) /
-      trackLine.clientWidth;
-    player.currentTime = player.myDemoPlayer.currentTime;
-    trackLineAnimation();
+trackLine.addEventListener("mousemove", (e) => {
+  x1 = trackLine.getBoundingClientRect().x;
+  x2 = e.pageX;
+  if (isNaN(player.myDemoPlayer.duration)) {
+    trackLine.title = "";
+  } else {
+    trackLine.title = fooConverTime(
+      Math.round(
+        (x2 - x1) * (player.myDemoPlayer.duration / trackLine.clientWidth)
+      )
+    );
   }
 });
 
@@ -442,8 +441,12 @@ listAllSongs.addEventListener("click", (e) => {
     for (let item of arrSongs) {
       if (item.title === newItemMusique.firstChild.textContent) {
         arrMyList.push(item);
+        if (inputMyList.checked && player.randomSong) {
+          player.playList.push(item);
+          player.oldPlayList = arrMyList;
+          newItemMusique.style.order = `${listMySongs.children.length}`;
+        }
         if (arrMyList.length === 1) {
-          btnMyList.classList.remove("display_hidden");
           listMySongs.previousElementSibling.classList.remove("display_none");
         }
       }
@@ -453,21 +456,32 @@ listAllSongs.addEventListener("click", (e) => {
 
   if (e.target.classList.contains("title_item_musique")) {
     let elem = e.target;
-    for (let item of arrSongs) {
+    let i = 0;
+    let arrS = arrSongs;
+    if (!inputAllList.checked) {
+      player.playList = arrSongs;
+      player.randomSong = false;
+      reordreRandomSongs(listAllSongs);
+      reordreRandomSongs(listMySongs);
+      document.querySelector(".random").classList.remove("active_nav_track");
+    } else if (player.randomSong) {
+      arrS = player.playList;
+    }
+    inputAllList.checked = true;
+
+    for (let item of arrS) {
       if (item.title === elem.firstChild.textContent) {
         document.querySelector(".play").classList.add("display_none");
         document.querySelector(".stop").classList.remove("display_none");
-        player.playList = [item];
-        player.numTrack = 0;
-        inputAllList.checked = false;
-        inputMyList.checked = false;
-        document.querySelector(".random").classList.remove("active_nav_track");
-        player.randomSong = false;
+        player.numTrack = i;
+        console.log(i);
 
-        player.randomSong = false;
         player.currentTime = 0;
         clearInterval(setInervalChangeFond);
+        clearInterval(setInter1);
         player.play();
+      } else {
+        i++;
       }
     }
   }
@@ -487,18 +501,62 @@ listMySongs.addEventListener("click", (e) => {
       for (let item1 of arrMyList) {
         if (item1.title === elem.parentElement.previousSibling.textContent) {
           arrMyList.splice(i, 1);
+          if (inputMyList.checked && player.randomSong) {
+            let j = 0;
+            for (let delSong of player.playList) {
+              if (delSong.title === item1.title) {
+                player.playList.splice(j, 1);
+              }
+              j++;
+            }
+            player.oldPlayList = arrMyList;
+          }
+
           if (arrMyList.length === 0) {
-            btnMyList.classList.add("display_hidden");
             listMySongs.previousElementSibling.classList.add("display_none");
             player.playList = arrSongs;
             inputAllList.checked = true;
+            player.stop();
             player.numTrack = 0;
+            document.querySelector(".play").classList.remove("display_none");
+            document.querySelector(".stop").classList.add("display_none");
+            player.reset();
           }
         }
         i++;
       }
     }
     elem.parentElement.parentElement.remove();
+  }
+
+  if (e.target.classList.contains("title_item_musique")) {
+    let elem = e.target;
+    let i = 0;
+    let arrS = arrMyList;
+    if (!inputMyList.checked) {
+      player.playList = arrMyList;
+      player.randomSong = false;
+      reordreRandomSongs(listMySongs);
+      reordreRandomSongs(listAllSongs);
+      document.querySelector(".random").classList.remove("active_nav_track");
+    } else if (player.randomSong) {
+      arrS = player.playList;
+    }
+    inputMyList.checked = true;
+    for (let item of arrS) {
+      if (item.title === elem.firstChild.textContent) {
+        document.querySelector(".play").classList.add("display_none");
+        document.querySelector(".stop").classList.remove("display_none");
+        player.numTrack = i;
+
+        player.currentTime = 0;
+        clearInterval(setInervalChangeFond);
+        clearInterval(setInter1);
+        player.play();
+      } else {
+        i++;
+      }
+    }
   }
 });
 
@@ -534,15 +592,14 @@ navTrack.addEventListener("click", (e) => {
   if (e.target.parentElement.className === "prev") {
     player.prev();
   }
-
-  if (e.target.classList.contains("volume_img")) {
-    document.querySelector(".block_volume").classList.toggle("display_none");
+  if (e.target.parentElement.className === "volume") {
+    document
+      .querySelector(".volume>.block_volume")
+      .classList.toggle("display_none");
     e.target.classList.toggle("active_nav_track");
   }
 
   if (e.target.parentElement.classList.contains("random")) {
-    console.dir(e.target);
-
     if (inputAllList.checked || inputMyList.checked) {
       e.target.parentElement.classList.toggle("active_nav_track");
       player.random();
@@ -570,56 +627,31 @@ navTrack.addEventListener("click", (e) => {
 
 inpVolumeMusique.addEventListener("input", (e) => {
   player.setVolum(Number(inpVolumeMusique.value) / 100);
+  inpVolumeMusique1.value = inpVolumeMusique.value;
 });
 
-btnAllList.addEventListener("click", (e) => {
-  if (player.randomSong) {
-    for (let song of listAllSongs.children) {
-      for (let i = 0; i < player.playList.length; i++) {
-        if (song.firstChild.textContent === player.playList[i].title) {
-          song.style.order = `${i}`;
-        }
-      }
-    }
-  } else {
-    for (let song of listAllSongs.children) {
-      song.style.order = `1`;
-    }
-
-    player.playList = arrSongs;
-    player.numTrack = 0;
-    player.reset();
-  }
+inpVolumeMusique1.addEventListener("input", (e) => {
+  player.setVolum(Number(inpVolumeMusique1.value) / 100);
+  inpVolumeMusique.value = inpVolumeMusique1.value;
 });
 
-btnMyList.addEventListener("click", (e) => {
-  if (player.randomSong) {
-    for (let song of listMySongs.children) {
-      for (let i = 0; i < player.playList.length; i++) {
-        if (song.firstChild.textContent === player.playList[i].title) {
-          console.log(song);
-          song.style.order = `${i}`;
-        }
-      }
-    }
-  } else {
-    for (let song of listMySongs.children) {
-      song.style.order = `1`;
-    }
-
-    inputMyList.disabled = false;
-    player.playList = arrMyList;
-    player.numTrack = 0;
-    console.log(player.playList);
-
-    player.reset();
-  }
+document.querySelector(".volume_img").addEventListener("click", (e) => {
+  document.querySelector(".block_volume").classList.toggle("display_none");
+  e.target.classList.toggle("active_nav_track");
 });
+
+// btnAllList.addEventListener("click", (e) => {
+
+// });
+
+// btnMyList.addEventListener("click", (e) => {
+
+// });
 
 //     Search  All lIst      ////////
 inpSearchAllSong.addEventListener("input", (e) => {
   let str = e.target.value;
-  console.log(str);
+
   for (let song of listAllSongs.children) {
     if (
       song.firstChild.textContent.toLowerCase().match(str.toLowerCase()) ||
@@ -641,7 +673,7 @@ inpSearchAllSong.addEventListener("input", (e) => {
 
 inpSearchMySong.addEventListener("input", (e) => {
   let str = e.target.value;
-  console.log(str);
+
   for (let song of listMySongs.children) {
     if (
       song.firstChild.textContent.toLowerCase().match(str.toLowerCase()) ||

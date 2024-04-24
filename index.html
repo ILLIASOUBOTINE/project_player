@@ -27,7 +27,7 @@
     <title>Player</title>
   </head>
   <body>
-    <div class="container d-flex flex-column px-0 justify-content-between">
+    <div class="container1 d-flex flex-column px-0 justify-content-between">
       <header>
         <p class="title_header">Ma musique</p>
       </header>
@@ -45,6 +45,15 @@
               data-bs-auto-close="false"
             >
               Ma liste de lecture
+            </button>
+
+            <button
+              class="dropdown-toggle style_item_list title_text_main1 border-0"
+              type="button"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="false"
+            >
+              Ma liste 
             </button>
 
             <div class="list_musique dropdown-menu pt-0 pb-0 rounded-0">
@@ -72,6 +81,14 @@
             >
               Toutes les chansons
             </button>
+            <button
+            class="dropdown-toggle style_item_list title_text_main1 border-0"
+            type="button"
+            data-bs-toggle="dropdown"
+            data-bs-auto-close="false"
+          >
+            Toutes
+          </button>
 
             <div class="list_musique dropdown-menu pt-0 pb-0 rounded-0">
               <div class="div_search style_item_list">
@@ -97,7 +114,7 @@
 
           <!--                          motor              -->
           <div class="motor">
-            <div class="btn_choice_list" draggable="false">
+            <div class="btn_choice_list" >
               <input
                 id="btn_my_list"
                 type="radio"
@@ -105,9 +122,9 @@
                 disabled
               />
               <label
-                class="cursor_pointer btn_my_list display_hidden btn_filtre_submit mx-0 my-0"
+                class="btn_my_list  btn_filtre_submit mx-0 my-0"
                 for="btn_my_list"
-                draggable="false"
+                
                 >Ma liste</label
               >
 
@@ -115,48 +132,71 @@
                 id="btn_all_list"
                 type="radio"
                 name="choice_list"
+                disabled
                 checked
               />
               <label
-                class="cursor_pointer btn_all_list btn_filtre_submit mx-0 my-0"
+                class="btn_all_list btn_filtre_submit mx-0 my-0"
                 for="btn_all_list"
                 draggable="false"
                 >Toutes</label
               >
             </div>
+            
+            
+              <div class="volume1">
+                <img class="volume_img" src="imgs/volume_icon.png" alt="volume" title="volume" />
+                <div class="block_volume display_none">
+                  <span>100</span>
+                  <input
+                    class="volume_musique"
+                    type="range"
+                    value="10"
+                    id="volume_musique1"
+                    min="0"
+                    max="100"
+                    step="2"
+                  />
+                  <span>0</span>
+                </div>
+              </div>
+              
+            
 
-            <div class="track_line">
+
+            <div class="track_line cursor_pointer" title="">
               <div class="track_line_red"></div>
-              <div class="track_circle" draggable="false"></div>
+              <!-- <div class="track_circle" draggable="false"></div> -->
               <!-- draggable="true" -->
-              <p class="track_time text_filtre" draggable="false">0:00</p>
+              <p class="track_time text_filtre">0:00</p>
+              <p class="track_time_total text_filtre">0:00</p>
             </div>
 
-            <div class="nav_track_menu" draggable="false">
+            <div class="nav_track_menu" >
               <div class="nav_track">
                 <div class="reset">
-                  <img src="imgs/reset_icon.png" alt="" />
+                  <img src="imgs/reset_icon.png" alt="réinitialiser" title="réinitialiser"/>
                 </div>
-                <div class="prev"><img src="imgs/next_icon.png" alt="" /></div>
-                <div class="play"><img src="imgs/play_icon.png" alt="" /></div>
+                <div class="prev"><img src="imgs/next_icon.png" alt="précédent" title="précédent"/></div>
+                <div class="play"><img src="imgs/play_icon.png" alt="jouer" title="jouer"/></div>
                 <div class="stop display_none">
-                  <img src="imgs/stop_icon.png" alt="" />
+                  <img src="imgs/stop_icon.png" alt="arrêter" title="arrêter"/>
                 </div>
-                <div class="next"><img src="imgs/prev_icon.png" alt="" /></div>
-                <div class="loop"><img src="imgs/loop_icon.png" alt="" /></div>
+                <div class="next"><img src="imgs/prev_icon.png" alt="suivant" title="suivant"/></div>
+                <div class="loop"><img src="imgs/loop_icon.png" alt="boucler" title="boucler"/></div>
 
                 <div class="volume">
-                  <img class="volume_img" src="imgs/volume_icon.png" alt="" />
+                  <img class="volume_img" src="imgs/volume_icon.png" alt="volume" title="volume" />
                   <div class="block_volume display_none">
                     <span>100</span>
                     <input
                       class="volume_musique"
                       type="range"
-                      value="50"
+                      value="10"
                       id="volume_musique"
                       min="0"
                       max="100"
-                      step="10"
+                      step="2"
                     />
                     <span>0</span>
                   </div>
@@ -164,18 +204,18 @@
               </div>
               <div class="nav_track">
                 <div class="random">
-                  <img src="imgs/ps_random.svg" alt="" />
+                  <img src="imgs/ps_random.svg" alt="aléatoire" title="aléatoire"/>
                 </div>
                 <div class="rewind_minus">
-                  <img src="imgs/rewind_minus.svg" alt="" />
+                  <img src="imgs/rewind_minus.svg" alt="rembobiner" title="rembobiner"/>
                 </div>
                 <div class="stop_screen">
-                  <img src="imgs/stop_screen.svg" alt="" />
+                  <img src="imgs/stop_screen.svg" alt="arrêter le changement de couleur de l'écran" title="arrêter le changement de couleur de l'écran"/>
                 </div>
                 <div class="rewind_plus">
-                  <img src="imgs/rewind_plus.svg" alt="" />
+                  <img src="imgs/rewind_plus.svg" alt="rembobiner vers l'avant" title="rembobiner vers l'avant"/>
                 </div>
-                <div class="mute"><img src="imgs/mute.svg" alt="" /></div>
+                <div class="mute"><img src="imgs/mute.svg" alt="mute" title="mute"/></div>
                 <!--      sd         -->
               </div>
             </div>
@@ -215,6 +255,7 @@
             /></a>
           </li>
         </ul>
+       
       </footer>
     </div>
 
